@@ -1,0 +1,10 @@
+{
+  "id": "deki-imu",
+  "displayName": "IMU (Accelerometer + Gyroscope)",
+  "buildDefine": "DEKI_MODULE_IMU",
+  "requires": [],
+  "features": [
+    {"id": "lsm6ds3", "displayName": "LSM6DS3 (I\u00b2C, 6-axis + hardware pedometer)", "buildDefine": "DEKI_FEATURE_IMU_LSM6DS3", "defaultEnabled": true, "componentGuids": []}
+  ],
+  "dependencies": {}
+}
