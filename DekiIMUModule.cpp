@@ -1,21 +1,6 @@
 #include "DekiIMUModule.h"
 #include "interop/DekiPlugin.h"
-#include "DekiIMUProvider.h"
-#include "chips/LSM6DS3IMU.h"
 #include "DekiLogSystem.h"
-
-namespace
-{
-struct DekiIMUBackendInit
-{
-    DekiIMUBackendInit()
-    {
-        DEKI_LOG_INFO("[deki-imu] Module loaded, registering LSM6DS3 factory");
-        DekiIMUProvider::SetFactory([]() -> IDekiIMU* { return new LSM6DS3IMU(); });
-    }
-};
-static DekiIMUBackendInit s_imu_init;
-}
 
 #ifdef DEKI_EDITOR
 
