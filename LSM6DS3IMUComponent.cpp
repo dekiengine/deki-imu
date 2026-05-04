@@ -1,6 +1,6 @@
 #include "LSM6DS3IMUComponent.h"
 #include "DekiIMUProvider.h"
-#include "modules/ModuleConfig.h"
+#include "ModuleConfig.h"
 #include "DekiLogSystem.h"
 #include <string>
 
