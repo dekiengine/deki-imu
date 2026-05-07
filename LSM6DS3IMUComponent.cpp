@@ -1,5 +1,5 @@
 #include "LSM6DS3IMUComponent.h"
-#include "DekiIMUProvider.h"
+#include "DekiIMU.h"
 #include "ModuleConfig.h"
 #include "DekiLogSystem.h"
 #include <string>
@@ -23,7 +23,7 @@ void LSM6DS3IMUComponent::Setup(SetupCallback onComplete)
     const bool success = s_Driver->Initialize();
     if (success)
     {
-        DekiIMUProvider::SetCurrent(s_Driver);
+        DekiIMU::SetCurrent(s_Driver);
     }
     else
     {

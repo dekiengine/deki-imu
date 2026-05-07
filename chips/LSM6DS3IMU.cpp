@@ -1,5 +1,5 @@
 #include "LSM6DS3IMU.h"
-#include "providers/DekiI2CProvider.h"
+#include "providers/DekiI2C.h"
 #include "DekiLogSystem.h"
 
 namespace
@@ -45,7 +45,7 @@ void LSM6DS3IMU::Configure(const ModuleConfig& config)
 
 bool LSM6DS3IMU::Initialize()
 {
-    m_Bus = DekiI2CProvider::GetBus(m_BusPort);
+    m_Bus = DekiI2C::GetBus(m_BusPort);
     if (!m_Bus)
     {
         m_LastError = "LSM6DS3: no I2C bus registered on requested port (add an I2CBusComponent)";

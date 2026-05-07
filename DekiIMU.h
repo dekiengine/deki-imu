@@ -9,7 +9,7 @@
  * their Setup() once the driver is configured and initialized. Game code reads
  * the current IMU via GetCurrent().
  */
-class DekiIMUProvider
+class DekiIMU
 {
 public:
     static void      SetCurrent(IDekiIMU* imu);
