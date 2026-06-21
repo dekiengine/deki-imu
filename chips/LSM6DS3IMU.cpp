@@ -1,5 +1,5 @@
 #include "LSM6DS3IMU.h"
-#include "providers/DekiI2C.h"
+#include "DekiI2C.h"  // from deki-i2c
 #include "DekiLogSystem.h"
 
 namespace

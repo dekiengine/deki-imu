@@ -2,7 +2,7 @@
 
 #include "../IDekiIMU.h"
 #include "ModuleConfig.h"
-#include "providers/IDekiI2C.h"
+#include "IDekiI2C.h"  // from deki-i2c
 #include <string>
 
 class LSM6DS3IMU : public IDekiIMU
