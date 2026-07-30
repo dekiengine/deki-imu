@@ -19,6 +19,7 @@ class LSM6DS3IMUComponent : public SetupComponent
 public:
     DEKI_COMPONENT(LSM6DS3IMUComponent, SetupComponent, "Sensors", "2b4f8e91-7d36-4a50-9c18-4f6b2d8e1a35", "")
     DEKI_DISPLAY_NAME("LSM6DS3 IMU")
+    DEKI_DESCRIPTION("Reads the LSM6DS3 motion sensor over I2C, step counter included.")
 
     DEKI_EXPORT
     DEKI_RANGE(0, 3)
