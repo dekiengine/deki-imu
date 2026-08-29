@@ -6,10 +6,10 @@
 #include "chips/LSM6DS3IMU.h"
 
 /**
- * @brief Boot-prefab component for the LSM6DS3 6-axis IMU.
+ * @brief Boot-scene component for the LSM6DS3 6-axis IMU.
  *
  * Wires to the shared I2C bus at address 0x6A (or 0x6B if SDO is pulled high).
- * Requires an I2CBusComponent on the matching port in boot.prefab.
+ * Requires an I2CBusComponent on the matching port in boot.scene.
  *
  * Includes the LSM6DS3's built-in hardware pedometer (step counter) — toggle
  * via `enable_pedometer`.
