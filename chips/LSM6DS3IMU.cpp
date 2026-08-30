@@ -38,9 +38,9 @@ namespace
 
 void LSM6DS3IMU::Configure(const PackageConfig& config)
 {
-    m_BusPort   = config.GetInt("i2c_port", 0);
-    m_I2cAddr   = (uint8_t)config.GetInt("i2c_address", 0x6A);
-    m_Pedometer = config.GetBool("enable_pedometer", true);
+    m_BusPort   = config.GetInt("i2cPort", 0);
+    m_I2cAddr   = (uint8_t)config.GetInt("i2cAddress", 0x6A);
+    m_Pedometer = config.GetBool("enablePedometer", true);
 }
 
 bool LSM6DS3IMU::Initialize()
