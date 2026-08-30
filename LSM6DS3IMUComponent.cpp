@@ -1,6 +1,6 @@
 #include "LSM6DS3IMUComponent.h"
 #include "DekiIMU.h"
-#include "ModuleConfig.h"
+#include "PackageConfig.h"
 #include "DekiLogSystem.h"
 #include <string>
 
@@ -11,8 +11,8 @@ void LSM6DS3IMUComponent::Setup(SetupCallback onComplete)
     if (!s_Driver)
         s_Driver = new LSM6DS3IMU();
 
-    ModuleConfig cfg;
-    cfg.moduleId = "imu";
+    PackageConfig cfg;
+    cfg.packageId = "imu";
     cfg.enabled  = true;
     cfg.settings["i2c_port"]         = std::to_string(i2c_port);
     cfg.settings["i2c_address"]      = std::to_string(i2c_address);

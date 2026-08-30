@@ -2,11 +2,11 @@
 
 Accelerometer + gyroscope peripheral interface for the Deki Engine, with an LSM6DS3 backend (hardware pedometer).
 
-Part of the [Deki Engine](https://github.com/Kirbyrawr/deki-engine) module ecosystem.
+Part of the [Deki Engine](https://github.com/Kirbyrawr/deki-engine) package ecosystem.
 
 ## Installation
 
-Install via the Module Manager inside the Deki Editor.
+Install via the Package Manager inside the Deki Editor.
 
 ## License
 

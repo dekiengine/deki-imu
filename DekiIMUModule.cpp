@@ -1,4 +1,4 @@
-#include "DekiIMUModule.h"
+#include "DekiIMUPackage.h"
 #include "interop/DekiPlugin.h"
 #include "DekiLogSystem.h"
 
@@ -21,11 +21,11 @@ DEKI_IMU_API int DekiIMU_EnsureRegistered(void)
     return DekiIMU_GetAutoComponentCount();
 }
 
-DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "Deki IMU Module"; }
+DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "Deki IMU Package"; }
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
 {
-#ifdef DEKI_MODULE_VERSION
-    return DEKI_MODULE_VERSION;
+#ifdef DEKI_PACKAGE_VERSION
+    return DEKI_PACKAGE_VERSION;
 #else
     return "0.0.0-dev";
 #endif
@@ -45,7 +45,7 @@ DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
 }
 
 DEKI_PLUGIN_API int DekiPlugin_GetFeatureCount(void) { return 0; }
-DEKI_PLUGIN_API const struct DekiModuleFeatureInfo* DekiPlugin_GetFeature(int) { return nullptr; }
+DEKI_PLUGIN_API const struct DekiPackageFeatureInfo* DekiPlugin_GetFeature(int) { return nullptr; }
 
 } // extern "C"
 

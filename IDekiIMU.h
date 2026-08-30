@@ -1,6 +1,6 @@
 #pragma once
 
-#include "providers/IDekiModule.h"
+#include "providers/IDekiPackage.h"
 #include <cstdint>
 
 struct DekiVec3f
@@ -18,10 +18,10 @@ struct DekiVec3f
  * Gyroscope units: degrees per second (dps).
  * Step counter: monotonic count since power-on or last Reset.
  */
-class IDekiIMU : public IDekiModule
+class IDekiIMU : public IDekiPackage
 {
 public:
-    const char* GetModuleCategory() const override { return "imu"; }
+    const char* GetPackageCategory() const override { return "imu"; }
 
     virtual DekiVec3f ReadAccel() const = 0;
     virtual DekiVec3f ReadGyro() const = 0;

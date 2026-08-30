@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../IDekiIMU.h"
-#include "ModuleConfig.h"
+#include "PackageConfig.h"
 #include "IDekiI2C.h"  // from deki-i2c
 #include <string>
 
@@ -11,13 +11,13 @@ public:
     LSM6DS3IMU() = default;
     ~LSM6DS3IMU() override = default;
 
-    const char* GetModuleId() const override   { return "imu"; }
-    const char* GetModuleName() const override { return "LSM6DS3 IMU (I\xC2\xB2""C)"; }
-    void        Configure(const ModuleConfig& config) override;
+    const char* GetPackageId() const override   { return "imu"; }
+    const char* GetPackageName() const override { return "LSM6DS3 IMU (I\xC2\xB2""C)"; }
+    void        Configure(const PackageConfig& config) override;
     bool        Initialize() override;
     void        Shutdown() override;
     void        Update(float) override {}
-    ModuleState GetState() const override      { return m_State; }
+    PackageState GetState() const override      { return m_State; }
     const char* GetLastError() const override  { return m_LastError.c_str(); }
 
     DekiVec3f ReadAccel() const override;
@@ -32,7 +32,7 @@ private:
     bool       m_Pedometer = true;
     IDekiI2C*  m_Bus = nullptr;
 
-    ModuleState m_State = ModuleState::Uninitialized;
+    PackageState m_State = PackageState::Uninitialized;
     bool        m_HardwareConnected = false;
     std::string m_LastError;
 

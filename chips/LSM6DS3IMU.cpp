@@ -36,7 +36,7 @@ namespace
     inline int16_t ToS16(uint8_t lo, uint8_t hi) { return (int16_t)((uint16_t)lo | ((uint16_t)hi << 8)); }
 }
 
-void LSM6DS3IMU::Configure(const ModuleConfig& config)
+void LSM6DS3IMU::Configure(const PackageConfig& config)
 {
     m_BusPort   = config.GetInt("i2c_port", 0);
     m_I2cAddr   = (uint8_t)config.GetInt("i2c_address", 0x6A);
@@ -49,7 +49,7 @@ bool LSM6DS3IMU::Initialize()
     if (!m_Bus)
     {
         m_LastError = "LSM6DS3: no I2C bus registered on requested port (add an I2CBusComponent)";
-        m_State = ModuleState::Error;
+        m_State = PackageState::Error;
         return false;
     }
 
@@ -58,7 +58,7 @@ bool LSM6DS3IMU::Initialize()
     {
         DEKI_LOG_WARNING("LSM6DS3IMU: chip did not ACK at 0x%02X on I2C port %d", m_I2cAddr, m_BusPort);
         m_HardwareConnected = false;
-        m_State = ModuleState::Initialized;
+        m_State = PackageState::Initialized;
         return true; // Still considered Initialized; reads will return zeros.
     }
 
@@ -88,14 +88,14 @@ bool LSM6DS3IMU::Initialize()
             DEKI_LOG_WARNING("LSM6DS3IMU: pedometer enable failed");
     }
 
-    m_State = ModuleState::Initialized;
+    m_State = PackageState::Initialized;
     return true;
 }
 
 void LSM6DS3IMU::Shutdown()
 {
     m_Bus = nullptr;
-    m_State = ModuleState::Uninitialized;
+    m_State = PackageState::Uninitialized;
     m_HardwareConnected = false;
 }
 
