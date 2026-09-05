@@ -18,7 +18,7 @@ struct DekiVec3f
  * Gyroscope units: degrees per second (dps).
  * Step counter: monotonic count since power-on or last Reset.
  */
-class IDekiIMU : public IDekiPackage
+class IDekiIMU : public Deki::IPackage
 {
 public:
     const char* GetPackageCategory() const override { return "imu"; }

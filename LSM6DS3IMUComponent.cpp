@@ -11,7 +11,7 @@ void LSM6DS3IMUComponent::Setup(SetupCallback onComplete)
     if (!s_Driver)
         s_Driver = new LSM6DS3IMU();
 
-    PackageConfig cfg;
+    Deki::PackageConfig cfg;
     cfg.packageId = "imu";
     cfg.enabled  = true;
     cfg.settings["i2cPort"]         = std::to_string(i2cPort);
