@@ -1,5 +1,7 @@
 # Deki IMU
 
+Documentation: https://dekiengine.github.io/deki-imu/ (components and properties, generated from the code)
+
 Accelerometer + gyroscope peripheral interface for the Deki Engine, with an LSM6DS3 backend (hardware pedometer).
 
 Part of the [Deki Engine](https://github.com/dekiengine/deki-engine) package ecosystem.
