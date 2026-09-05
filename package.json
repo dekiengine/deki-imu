@@ -1,7 +1,7 @@
 {
   "id": "deki-imu",
   "displayName": "IMU (Accelerometer + Gyroscope)",
-  "minEngine": "2.0.0",
+  "minEngine": "0.10.0",
   "buildDefine": "DEKI_PACKAGE_IMU",
   "requires": [
     "deki-i2c"
