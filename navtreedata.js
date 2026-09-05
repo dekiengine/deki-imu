@@ -28,7 +28,7 @@ var NAVTREE =
     [ "Components", "index.html#autotoc_md0", null ],
     [ "Feature flags", "index.html#autotoc_md1", null ],
     [ "Component reference", "index.html#autotoc_md2", [
-      [ "LSM6DS3IMUComponent (LSM6DS3 IMU)", "index.html#c-lsm6ds3imucomponent", null ]
+      [ "LSM6DS3IMUComponent", "index.html#c-lsm6ds3imucomponent", null ]
     ] ]
   ] ]
 ];
