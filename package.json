@@ -1,7 +1,7 @@
 {
   "id": "deki-imu",
   "displayName": "IMU (Accelerometer + Gyroscope)",
-  "minEngine": "0.10.0",
+  "minEngine": "0.11.0",
   "buildDefine": "DEKI_PACKAGE_IMU",
   "requires": [
     "deki-i2c"
@@ -12,7 +12,7 @@
       "displayName": "LSM6DS3 (I²C, 6-axis + hardware pedometer)",
       "buildDefine": "DEKI_FEATURE_IMU_LSM6DS3",
       "defaultEnabled": true,
-      "componentGuids": []
+      "componentTypes": []
     }
   ],
   "dependencies": {}
