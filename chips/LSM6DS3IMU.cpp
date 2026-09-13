@@ -110,7 +110,7 @@ bool LSM6DS3IMU::EnablePedometer()
     return ok;
 }
 
-DekiVec3f LSM6DS3IMU::ReadAccel() const
+DekiVec3f LSM6DS3IMU::ReadAccelMetersPerSecondSquared() const
 {
     DekiVec3f v{};
     if (!m_Bus) return v;
@@ -124,7 +124,7 @@ DekiVec3f LSM6DS3IMU::ReadAccel() const
     return v;
 }
 
-DekiVec3f LSM6DS3IMU::ReadGyro() const
+DekiVec3f LSM6DS3IMU::ReadGyroRadiansPerSecond() const
 {
     DekiVec3f v{};
     if (!m_Bus) return v;

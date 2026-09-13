@@ -20,8 +20,8 @@ public:
     Deki::PackageState GetState() const override      { return m_State; }
     const char* GetLastError() const override  { return m_LastError.c_str(); }
 
-    DekiVec3f ReadAccel() const override;
-    DekiVec3f ReadGyro()  const override;
+    DekiVec3f ReadAccelMetersPerSecondSquared() const override;
+    DekiVec3f ReadGyroRadiansPerSecond() const override;
     uint32_t  GetStepCount() const override;
     void      ResetStepCount() override;
     bool      IsHardwareConnected() const override { return m_HardwareConnected; }
@@ -36,8 +36,11 @@ private:
     bool        m_HardwareConnected = false;
     std::string m_LastError;
 
-    float       m_AccelScale = 2.0f / 32768.0f;    // 1 LSB in g at ±2g full scale
-    float       m_GyroScale  = 245.0f / 32768.0f;  // 1 LSB in dps at ±245 dps full scale
+    // Chip counts -> SI, in one place. The datasheet figures are the ±2 g and
+    // ±245 dps full-scale ranges, kept visible in the expressions; the
+    // conversion to SI happens here at the driver boundary and nowhere else.
+    float       m_AccelScale = (2.0f / 32768.0f) * 9.80665f;   // LSB -> m/s^2 at ±2 g full scale
+    float       m_GyroScale  = (245.0f / 32768.0f) * Deki::Math::kDegToRad;  // LSB -> rad/s at ±245 dps
 
     bool EnablePedometer();
 };
