@@ -34,7 +34,7 @@ DEKI_IMU_API int DekiIMU_EnsureRegistered(void)
     return ::DekiIMU_GetAutoComponentCount();
 }
 
-DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "DekiRendering::Deki IMU Package"; }
+DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "Deki IMU Package"; }
 DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
 {
 #ifdef DEKI_PACKAGE_VERSION
