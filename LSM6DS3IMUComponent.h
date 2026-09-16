@@ -5,6 +5,9 @@
 #include <deki/reflection/Property.h>
 #include "chips/LSM6DS3IMU.h"
 
+namespace DekiImu
+{
+
 /**
  * @brief Boot-scene component for the LSM6DS3 6-axis IMU.
  *
@@ -17,6 +20,7 @@
 DEKI_CATEGORY("Sensors")
 DEKI_DISPLAY_NAME("LSM6DS3 IMU")
 DEKI_DESCRIPTION("Reads the LSM6DS3 motion sensor over I2C, step counter included.")
+DEKI_FORMER_NAME("LSM6DS3IMUComponent")
 class LSM6DS3IMUComponent : public Deki::SetupComponent
 {
 public:
@@ -40,4 +44,6 @@ public:
     void        Setup(SetupCallback onComplete) override;
     const char* GetSetupName() const override { return "LSM6DS3 IMU"; }
 };
+
+}  // namespace DekiImu
 

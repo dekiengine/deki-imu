@@ -4,6 +4,9 @@
 #include <deki/Math.h>
 #include <cstdint>
 
+namespace DekiImu
+{
+
 struct DekiVec3f
 {
     float x = 0.0f;
@@ -63,3 +66,5 @@ public:
 
     virtual bool      IsHardwareConnected() const = 0;
 };
+
+}  // namespace DekiImu

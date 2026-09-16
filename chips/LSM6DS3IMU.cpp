@@ -2,6 +2,9 @@
 #include "DekiI2C.h"  // from deki-i2c
 #include <deki/LogSystem.h>
 
+namespace DekiImu
+{
+
 namespace
 {
     // LSM6DS3 register map (subset — see ST AN4650)
@@ -45,10 +48,10 @@ void LSM6DS3IMU::Configure(const Deki::PackageConfig& config)
 
 bool LSM6DS3IMU::Initialize()
 {
-    m_Bus = DekiI2C::GetBus(m_BusPort);
+    m_Bus = DekiI2c::DekiI2C::GetBus(m_BusPort);
     if (!m_Bus)
     {
-        m_LastError = "LSM6DS3: no I2C bus registered on requested port (add an I2CBusComponent)";
+        m_LastError = "LSM6DS3: no I2C bus registered on requested port (add an DekiI2c::I2CBusComponent)";
         m_State = Deki::PackageState::Error;
         return false;
     }
@@ -155,3 +158,5 @@ void LSM6DS3IMU::ResetStepCount()
     const uint8_t normal = TAP_CFG_PEDO_EN;
     m_Bus->Write(m_I2cAddr, REG_TAP_CFG, &normal, 1);
 }
+
+}  // namespace DekiImu

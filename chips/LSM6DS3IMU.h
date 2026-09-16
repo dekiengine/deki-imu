@@ -5,6 +5,9 @@
 #include "IDekiI2C.h"  // from deki-i2c
 #include <string>
 
+namespace DekiImu
+{
+
 class LSM6DS3IMU : public IDekiIMU
 {
 public:
@@ -30,7 +33,7 @@ private:
     int        m_BusPort = 0;
     uint8_t    m_I2cAddr = 0x6A;
     bool       m_Pedometer = true;
-    IDekiI2C*  m_Bus = nullptr;
+    DekiI2c::IDekiI2C*  m_Bus = nullptr;
 
     Deki::PackageState m_State = Deki::PackageState::Uninitialized;
     bool        m_HardwareConnected = false;
@@ -44,3 +47,5 @@ private:
 
     bool EnablePedometer();
 };
+
+}  // namespace DekiImu

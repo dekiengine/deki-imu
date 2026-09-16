@@ -4,6 +4,9 @@
 #include <deki/LogSystem.h>
 #include <string>
 
+namespace DekiImu
+{
+
 static LSM6DS3IMU* s_Driver = nullptr;
 
 void LSM6DS3IMUComponent::Setup(SetupCallback onComplete)
@@ -33,3 +36,5 @@ void LSM6DS3IMUComponent::Setup(SetupCallback onComplete)
 
     if (onComplete) onComplete(success);
 }
+
+}  // namespace DekiImu

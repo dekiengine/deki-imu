@@ -2,6 +2,9 @@
 
 #include "IDekiIMU.h"
 
+namespace DekiImu
+{
+
 /**
  * @brief Published-instance registry for the currently active IMU driver.
  *
@@ -18,3 +21,5 @@ public:
 private:
     static IDekiIMU* s_Current;
 };
+
+}  // namespace DekiImu

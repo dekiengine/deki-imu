@@ -12,6 +12,9 @@
 
 #include <cmath>
 
+// The package's types moved into its namespace; tests name them unqualified.
+using namespace DekiImu;
+
 namespace
 {
 
