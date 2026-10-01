@@ -43,7 +43,7 @@ DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
     return "0.0.0-dev";
 #endif
 }
-DEKI_PLUGIN_API int  DekiPlugin_Init(void)             { DEKI_LOG_INFO("[deki-imu] DekiPlugin_Init"); return 0; }
+DEKI_PLUGIN_API int  DekiPlugin_Init(void)             { return 0; }
 DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)         { s_IMURegistered = false; }
 DEKI_PLUGIN_API int  DekiPlugin_GetComponentCount(void){ return ::DekiIMU_GetAutoComponentCount(); }
 DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
@@ -52,8 +52,7 @@ DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index
 }
 DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
 {
-    int n = DekiIMU_EnsureRegistered();
-    DEKI_LOG_INFO("[deki-imu] ::DekiPlugin_RegisterComponents -> %d component(s)", n);
+    DekiIMU_EnsureRegistered();
 }
 
 
