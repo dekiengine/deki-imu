@@ -8,33 +8,33 @@ namespace DekiImu
 namespace
 {
 // LSM6DS3 register map (subset — see ST AN4650)
-constexpr uint8_t REG_WHO_AM_I = 0x0F;
-constexpr uint8_t REG_CTRL1_XL = 0x10;  // accel control
-constexpr uint8_t REG_CTRL2_G = 0x11;   // gyro control
-constexpr uint8_t REG_CTRL3_C = 0x12;   // common control (BDU, etc.)
-constexpr uint8_t REG_CTRL10_C = 0x19;  // embedded-function enables
-constexpr uint8_t REG_TAP_CFG = 0x58;   // pedometer/tap/tilt enable
-constexpr uint8_t REG_OUT_G_L = 0x22;   // gyro  X/Y/Z LSB/MSB (6 bytes)
-constexpr uint8_t REG_OUT_XL_L = 0x28;  // accel X/Y/Z LSB/MSB (6 bytes)
-constexpr uint8_t REG_STEP_COUNTER_L = 0x4B;
+constexpr uint8_t kRegWhoAmI = 0x0F;
+constexpr uint8_t kRegCtrl1Xl = 0x10;  // accel control
+constexpr uint8_t kRegCtrl2G = 0x11;   // gyro control
+constexpr uint8_t kRegCtrl3C = 0x12;   // common control (BDU, etc.)
+constexpr uint8_t kRegCtrl10C = 0x19;  // embedded-function enables
+constexpr uint8_t kRegTapCfg = 0x58;   // pedometer/tap/tilt enable
+constexpr uint8_t kRegOutGL = 0x22;    // gyro  X/Y/Z LSB/MSB (6 bytes)
+constexpr uint8_t kRegOutXlL = 0x28;   // accel X/Y/Z LSB/MSB (6 bytes)
+constexpr uint8_t kRegStepCounterL = 0x4B;
 
 // Expected WHO_AM_I values for LSM6DS3 family
-constexpr uint8_t WHO_AM_I_LSM6DS3 = 0x69;
-constexpr uint8_t WHO_AM_I_LSM6DS3TR = 0x69;
-constexpr uint8_t WHO_AM_I_LSM6DS3_C = 0x6A;  // LSM6DS3-C variant
+constexpr uint8_t kWhoAmILsm6ds3 = 0x69;
+constexpr uint8_t kWhoAmILsm6ds3tr = 0x69;
+constexpr uint8_t kWhoAmILsm6ds3C = 0x6A;  // LSM6DS3-C variant
 
 // CTRL1_XL: 0x60 = 416 Hz ODR + ±2g + 400Hz analog BW
-constexpr uint8_t CTRL1_XL_416HZ_2G = 0x60;
+constexpr uint8_t kCtrl1Xl416Hz2G = 0x60;
 // CTRL2_G : 0x60 = 416 Hz ODR + ±245 dps
-constexpr uint8_t CTRL2_G_416HZ_245 = 0x60;
+constexpr uint8_t kCtrl2G416Hz245 = 0x60;
 // CTRL3_C : BDU (block data update)
-constexpr uint8_t CTRL3_C_BDU = 0x44;
+constexpr uint8_t kCtrl3CBdu = 0x44;
 
 // Pedometer enable pattern:
 //   TAP_CFG bit 7 (INTERRUPTS_ENABLE) + bit 6 (PEDO_RST_STEP)... we set TAP_CFG = 0x40 = enable funcs
 //   CTRL10_C bit 4 (PEDO_EN) + bit 2 (FUNC_EN)
-constexpr uint8_t TAP_CFG_PEDO_EN = 0x40;
-constexpr uint8_t CTRL10_C_PEDO_FUN = 0x14;
+constexpr uint8_t kTapCfgPedoEn = 0x40;
+constexpr uint8_t kCtrl10CPedoFun = 0x14;
 
 inline int16_t ToS16(uint8_t lo, uint8_t hi)
 {
@@ -69,7 +69,7 @@ bool LSM6DS3IMU::Initialize()
     }
 
     uint8_t who = 0;
-    if (m_Bus->Read(m_I2cAddr, REG_WHO_AM_I, &who, 1) && (who == WHO_AM_I_LSM6DS3 || who == WHO_AM_I_LSM6DS3_C))
+    if (m_Bus->Read(m_I2cAddr, kRegWhoAmI, &who, 1) && (who == kWhoAmILsm6ds3 || who == kWhoAmILsm6ds3C))
     {
         m_HardwareConnected = true;
     }
@@ -80,12 +80,12 @@ bool LSM6DS3IMU::Initialize()
     }
 
     // Core config: 416 Hz on both accel & gyro, BDU on
-    const uint8_t ctrl1 = CTRL1_XL_416HZ_2G;
-    const uint8_t ctrl2 = CTRL2_G_416HZ_245;
-    const uint8_t ctrl3 = CTRL3_C_BDU;
-    m_Bus->Write(m_I2cAddr, REG_CTRL1_XL, &ctrl1, 1);
-    m_Bus->Write(m_I2cAddr, REG_CTRL2_G, &ctrl2, 1);
-    m_Bus->Write(m_I2cAddr, REG_CTRL3_C, &ctrl3, 1);
+    const uint8_t ctrl1 = kCtrl1Xl416Hz2G;
+    const uint8_t ctrl2 = kCtrl2G416Hz245;
+    const uint8_t ctrl3 = kCtrl3CBdu;
+    m_Bus->Write(m_I2cAddr, kRegCtrl1Xl, &ctrl1, 1);
+    m_Bus->Write(m_I2cAddr, kRegCtrl2G, &ctrl2, 1);
+    m_Bus->Write(m_I2cAddr, kRegCtrl3C, &ctrl3, 1);
 
     if (m_Pedometer)
     {
@@ -112,11 +112,11 @@ bool LSM6DS3IMU::EnablePedometer()
     {
         return false;
     }
-    const uint8_t tapCfg = TAP_CFG_PEDO_EN;
-    const uint8_t ctrl10C = CTRL10_C_PEDO_FUN;
+    const uint8_t tapCfg = kTapCfgPedoEn;
+    const uint8_t ctrl10C = kCtrl10CPedoFun;
     bool ok = true;
-    ok &= m_Bus->Write(m_I2cAddr, REG_TAP_CFG, &tapCfg, 1);
-    ok &= m_Bus->Write(m_I2cAddr, REG_CTRL10_C, &ctrl10C, 1);
+    ok &= m_Bus->Write(m_I2cAddr, kRegTapCfg, &tapCfg, 1);
+    ok &= m_Bus->Write(m_I2cAddr, kRegCtrl10C, &ctrl10C, 1);
     return ok;
 }
 
@@ -129,7 +129,7 @@ DekiVec3f LSM6DS3IMU::ReadAccelMetersPerSecondSquared() const
     }
 
     uint8_t raw[6] = {};
-    if (!m_Bus->Read(m_I2cAddr, REG_OUT_XL_L, raw, 6))
+    if (!m_Bus->Read(m_I2cAddr, kRegOutXlL, raw, 6))
     {
         return v;
     }
@@ -149,7 +149,7 @@ DekiVec3f LSM6DS3IMU::ReadGyroRadiansPerSecond() const
     }
 
     uint8_t raw[6] = {};
-    if (!m_Bus->Read(m_I2cAddr, REG_OUT_G_L, raw, 6))
+    if (!m_Bus->Read(m_I2cAddr, kRegOutGL, raw, 6))
     {
         return v;
     }
@@ -167,7 +167,7 @@ uint32_t LSM6DS3IMU::GetStepCount() const
         return 0;
     }
     uint8_t raw[2] = {};
-    if (!m_Bus->Read(m_I2cAddr, REG_STEP_COUNTER_L, raw, 2))
+    if (!m_Bus->Read(m_I2cAddr, kRegStepCounterL, raw, 2))
     {
         return 0;
     }
@@ -181,10 +181,10 @@ void LSM6DS3IMU::ResetStepCount()
         return;
     }
     // TAP_CFG bit 6 = PEDO_RST_STEP (toggled on to clear, hardware auto-clears)
-    const uint8_t reset = TAP_CFG_PEDO_EN | 0x02;  // keep func enable + set PEDO_RST_STEP bit
-    m_Bus->Write(m_I2cAddr, REG_TAP_CFG, &reset, 1);
-    const uint8_t normal = TAP_CFG_PEDO_EN;
-    m_Bus->Write(m_I2cAddr, REG_TAP_CFG, &normal, 1);
+    const uint8_t reset = kTapCfgPedoEn | 0x02;  // keep func enable + set PEDO_RST_STEP bit
+    m_Bus->Write(m_I2cAddr, kRegTapCfg, &reset, 1);
+    const uint8_t normal = kTapCfgPedoEn;
+    m_Bus->Write(m_I2cAddr, kRegTapCfg, &normal, 1);
 }
 
 }  // namespace DekiImu

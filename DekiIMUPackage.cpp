@@ -6,9 +6,9 @@
 #include <deki/interop/Plugin.h>
 #include <deki/LogSystem.h>
 
-extern void DekiIMU_RegisterComponents();
-extern int DekiIMU_GetAutoComponentCount();
-extern const Deki::ComponentMeta* DekiIMU_GetAutoComponentMeta(int index);
+extern void DekiIMURegisterComponents();
+extern int DekiIMUGetAutoComponentCount();
+extern const Deki::ComponentMeta* DekiIMUGetAutoComponentMeta(int index);
 
 namespace DekiImu
 {
@@ -23,22 +23,22 @@ using namespace DekiImu;
 
 extern "C"
 {
-    DEKI_IMU_API int DekiIMU_EnsureRegistered(void)
+    DEKI_IMU_API int DekiIMUEnsureRegistered(void)
     {
         if (s_IMURegistered)
         {
-            return ::DekiIMU_GetAutoComponentCount();
+            return ::DekiIMUGetAutoComponentCount();
         }
         s_IMURegistered = true;
-        ::DekiIMU_RegisterComponents();
-        return ::DekiIMU_GetAutoComponentCount();
+        ::DekiIMURegisterComponents();
+        return ::DekiIMUGetAutoComponentCount();
     }
 
-    DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
+    DEKI_PLUGIN_API const char* DekiPluginGetName(void)
     {
         return "Deki IMU Package";
     }
-    DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
+    DEKI_PLUGIN_API const char* DekiPluginGetVersion(void)
     {
 #ifdef DEKI_PACKAGE_VERSION
         return DEKI_PACKAGE_VERSION;
@@ -46,25 +46,25 @@ extern "C"
         return "0.0.0-dev";
 #endif
     }
-    DEKI_PLUGIN_API int DekiPlugin_Init(void)
+    DEKI_PLUGIN_API int DekiPluginInit(void)
     {
         return 0;
     }
-    DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
+    DEKI_PLUGIN_API void DekiPluginShutdown(void)
     {
         s_IMURegistered = false;
     }
-    DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
+    DEKI_PLUGIN_API int DekiPluginGetComponentCount(void)
     {
-        return ::DekiIMU_GetAutoComponentCount();
+        return ::DekiIMUGetAutoComponentCount();
     }
-    DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
+    DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPluginGetComponentMeta(int index)
     {
-        return ::DekiIMU_GetAutoComponentMeta(index);
+        return ::DekiIMUGetAutoComponentMeta(index);
     }
-    DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
+    DEKI_PLUGIN_API void DekiPluginRegisterComponents(void)
     {
-        DekiIMU_EnsureRegistered();
+        DekiIMUEnsureRegistered();
     }
 
 }  // extern "C"
