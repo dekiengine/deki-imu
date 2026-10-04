@@ -1,7 +1,4 @@
-/**
- * @file DekiIMUPackage.cpp
- * @brief Package entry point for deki-imu
- */
+// Package entry point for deki-imu.
 #include "DekiIMUPackage.h"
 #include <deki/interop/Plugin.h>
 #include <deki/LogSystem.h>

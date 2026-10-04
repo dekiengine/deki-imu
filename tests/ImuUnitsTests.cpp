@@ -1,10 +1,9 @@
 // The two spellings of a reading must never disagree.
 //
-// IDekiIMU declares the SI accessor virtual and derives the datasheet one
-// from it, so a driver cannot implement the pair inconsistently. These tests
-// pin that arrangement: that the derived value is exactly the documented
+// IDekiIMU makes the SI accessor virtual and derives the datasheet one from
+// it. These tests check that the derived value is exactly the documented
 // conversion of the virtual one, and that a driver overriding only the SI
-// accessor gets a correct datasheet accessor for free.
+// accessor gets a correct datasheet accessor.
 
 #include <gtest/gtest.h>
 
@@ -12,7 +11,7 @@
 
 #include <cmath>
 
-// The package's types moved into its namespace; tests name them unqualified.
+// The package's types live in its namespace; the tests name them unqualified.
 using namespace DekiImu;
 
 namespace
@@ -90,9 +89,8 @@ TEST(ImuUnits, GyroDegreesIsTheSIValueConverted)
 
 TEST(ImuUnits, GyroFullScaleMatchesTheDatasheetFigure)
 {
-    // The LSM6DS3's default range is ±245 dps. A driver storing that rate in
-    // SI must read back as 245 in the datasheet spelling, or the two
-    // documented full-scale numbers describe different sensors.
+    // The LSM6DS3's default range is ±245 dps. That rate stored in SI must
+    // read back as 245 in datasheet units.
     FakeIMU imu;
     imu.gyro = { 245.0f * Deki::Math::kDegToRad, 0.0f, 0.0f };
     EXPECT_NEAR(imu.ReadGyroDegreesPerSecond().x, 245.0f, 1e-3f);
@@ -100,9 +98,8 @@ TEST(ImuUnits, GyroFullScaleMatchesTheDatasheetFigure)
 
 TEST(ImuUnits, DerivedAccessorsGoThroughTheVirtualOnes)
 {
-    // This is what makes the two spellings impossible to desync: the derived
-    // accessor is not virtual and has no state of its own, so it must call the
-    // driver's SI accessor to answer at all.
+    // This keeps the two spellings in step: the derived accessor is not
+    // virtual and has no state, so it must call the driver's SI accessor.
     FakeIMU imu;
     imu.ReadAccelG();
     imu.ReadGyroDegreesPerSecond();

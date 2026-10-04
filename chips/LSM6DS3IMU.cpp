@@ -30,9 +30,8 @@ constexpr uint8_t kCtrl2G416Hz245 = 0x60;
 // CTRL3_C : BDU (block data update)
 constexpr uint8_t kCtrl3CBdu = 0x44;
 
-// Pedometer enable pattern:
-//   TAP_CFG bit 7 (INTERRUPTS_ENABLE) + bit 6 (PEDO_RST_STEP)... we set TAP_CFG = 0x40 = enable funcs
-//   CTRL10_C bit 4 (PEDO_EN) + bit 2 (FUNC_EN)
+// Pedometer enable: TAP_CFG = 0x40 turns the embedded functions on, and
+// CTRL10_C sets bit 4 (PEDO_EN) and bit 2 (FUNC_EN).
 constexpr uint8_t kTapCfgPedoEn = 0x40;
 constexpr uint8_t kCtrl10CPedoFun = 0x14;
 
@@ -59,13 +58,12 @@ bool LSM6DS3IMU::Initialize()
         return false;
     }
 
-    // Probe + WHO_AM_I check
     if (!m_Bus->Probe(m_I2cAddr))
     {
         DEKI_LOG_WARNING("LSM6DS3IMU: chip did not ACK at 0x%02X on I2C port %d", m_I2cAddr, m_BusPort);
         m_HardwareConnected = false;
         m_State = Deki::PackageState::Initialized;
-        return true;  // Still considered Initialized; reads will return zeros.
+        return true;  // Initialized anyway; reads return zeros.
     }
 
     uint8_t who = 0;
@@ -79,7 +77,7 @@ bool LSM6DS3IMU::Initialize()
         m_HardwareConnected = false;
     }
 
-    // Core config: 416 Hz on both accel & gyro, BDU on
+    // 416 Hz on both accel and gyro, block data update on.
     const uint8_t ctrl1 = kCtrl1Xl416Hz2G;
     const uint8_t ctrl2 = kCtrl2G416Hz245;
     const uint8_t ctrl3 = kCtrl3CBdu;

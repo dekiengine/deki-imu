@@ -14,23 +14,20 @@ struct DekiVec3f
     float z = 0.0f;
 };
 
-/**
- * @brief 6-axis IMU interface (3-axis accelerometer + 3-axis gyroscope,
- *        plus optional hardware pedometer step counter).
- *
- * Readings come in two spellings, and every one of them says its unit in its
- * own name. A bare ReadGyro() returning a DekiVec3f said nothing, so whether
- * it was radians or degrees lived in a comment — and a value fed into a
- * rotation on the strength of the wrong guess is out by 57.3x.
- *
- * The SI accessor is the virtual one, because that is what the engine stores
- * (see deki-editor/docs/units.md: metres, radians, seconds). The datasheet
- * accessor is derived from it and is NOT virtual, so a driver cannot make the
- * two disagree. Debugging against the chip's +/-245 dps or +/-2 g figures uses
- * the datasheet spelling; anything that integrates a reading uses SI.
- *
- * Step counter: monotonic count since power-on or last Reset.
- */
+/// 6-axis IMU: 3-axis accelerometer and 3-axis gyroscope, plus an optional
+/// hardware step counter.
+///
+/// Every reading names its unit, because radians mistaken for degrees put a
+/// rotation out by 57.3x.
+///
+/// The SI accessor is virtual, since SI is what the engine stores (see
+/// deki-editor/docs/units.md: metres, radians, seconds). The datasheet
+/// accessor is derived from it and is not virtual, so a driver cannot make
+/// the two disagree. Use the datasheet units to compare with the chip's
+/// +/-245 dps or +/-2 g figures; use SI for anything that integrates a
+/// reading.
+///
+/// The step count only goes up, from power-on or the last reset.
 class IDekiIMU : public Deki::IPackage
 {
 public:

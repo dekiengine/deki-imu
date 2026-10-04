@@ -5,13 +5,11 @@
 namespace DekiImu
 {
 
-/**
- * @brief Published-instance registry for the currently active IMU driver.
- *
- * Chip-specific SetupComponents (e.g., LSM6DS3Component) call SetCurrent() in
- * their Setup() once the driver is configured and initialized. Game code reads
- * the current IMU via GetCurrent().
- */
+/// Holds the active IMU driver.
+///
+/// A chip's SetupComponent (such as LSM6DS3IMUComponent) calls SetCurrent()
+/// in Setup() once its driver is initialized. Game code reads it through
+/// GetCurrent().
 class DekiIMU
 {
 public:

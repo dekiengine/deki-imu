@@ -43,9 +43,8 @@ private:
     bool m_HardwareConnected = false;
     std::string m_LastError;
 
-    // Chip counts -> SI, in one place. The datasheet figures are the ±2 g and
-    // ±245 dps full-scale ranges, kept visible in the expressions; the
-    // conversion to SI happens here at the driver boundary and nowhere else.
+    // Chip counts to SI, here and nowhere else. The datasheet's ±2 g and
+    // ±245 dps full-scale ranges stay visible in the expressions.
     float m_AccelScale = (2.0f / 32768.0f) * 9.80665f;                // LSB -> m/s^2 at ±2 g full scale
     float m_GyroScale = (245.0f / 32768.0f) * Deki::Math::kDegToRad;  // LSB -> rad/s at ±245 dps
 
