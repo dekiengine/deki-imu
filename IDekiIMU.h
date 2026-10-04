@@ -56,15 +56,13 @@ public:
     DekiVec3f ReadGyroDegreesPerSecond() const
     {
         const DekiVec3f g = ReadGyroRadiansPerSecond();
-        return { g.x * Deki::Math::kRadToDeg,
-                 g.y * Deki::Math::kRadToDeg,
-                 g.z * Deki::Math::kRadToDeg };
+        return { g.x * Deki::Math::kRadToDeg, g.y * Deki::Math::kRadToDeg, g.z * Deki::Math::kRadToDeg };
     }
 
-    virtual uint32_t  GetStepCount() const = 0;
-    virtual void      ResetStepCount() = 0;
+    virtual uint32_t GetStepCount() const = 0;
+    virtual void ResetStepCount() = 0;
 
-    virtual bool      IsHardwareConnected() const = 0;
+    virtual bool IsHardwareConnected() const = 0;
 };
 
 }  // namespace DekiImu

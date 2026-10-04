@@ -7,7 +7,7 @@
 #include <deki/LogSystem.h>
 
 extern void DekiIMU_RegisterComponents();
-extern int  DekiIMU_GetAutoComponentCount();
+extern int DekiIMU_GetAutoComponentCount();
 extern const Deki::ComponentMeta* DekiIMU_GetAutoComponentMeta(int index);
 
 namespace DekiImu
@@ -15,49 +15,59 @@ namespace DekiImu
 
 #ifdef DEKI_EDITOR
 
-
 static bool s_IMURegistered = false;
-
 
 // The exports below are C symbols at global scope; the package's own
 // registration helpers and statics live in its namespace.
 using namespace DekiImu;
 
-extern "C" {
-
-DEKI_IMU_API int DekiIMU_EnsureRegistered(void)
+extern "C"
 {
-    if (s_IMURegistered)
+    DEKI_IMU_API int DekiIMU_EnsureRegistered(void)
+    {
+        if (s_IMURegistered)
+        {
+            return ::DekiIMU_GetAutoComponentCount();
+        }
+        s_IMURegistered = true;
+        ::DekiIMU_RegisterComponents();
         return ::DekiIMU_GetAutoComponentCount();
-    s_IMURegistered = true;
-    ::DekiIMU_RegisterComponents();
-    return ::DekiIMU_GetAutoComponentCount();
-}
+    }
 
-DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)    { return "Deki IMU Package"; }
-DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
-{
+    DEKI_PLUGIN_API const char* DekiPlugin_GetName(void)
+    {
+        return "Deki IMU Package";
+    }
+    DEKI_PLUGIN_API const char* DekiPlugin_GetVersion(void)
+    {
 #ifdef DEKI_PACKAGE_VERSION
-    return DEKI_PACKAGE_VERSION;
+        return DEKI_PACKAGE_VERSION;
 #else
-    return "0.0.0-dev";
+        return "0.0.0-dev";
 #endif
-}
-DEKI_PLUGIN_API int  DekiPlugin_Init(void)             { return 0; }
-DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)         { s_IMURegistered = false; }
-DEKI_PLUGIN_API int  DekiPlugin_GetComponentCount(void){ return ::DekiIMU_GetAutoComponentCount(); }
-DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
-{
-    return ::DekiIMU_GetAutoComponentMeta(index);
-}
-DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
-{
-    DekiIMU_EnsureRegistered();
-}
+    }
+    DEKI_PLUGIN_API int DekiPlugin_Init(void)
+    {
+        return 0;
+    }
+    DEKI_PLUGIN_API void DekiPlugin_Shutdown(void)
+    {
+        s_IMURegistered = false;
+    }
+    DEKI_PLUGIN_API int DekiPlugin_GetComponentCount(void)
+    {
+        return ::DekiIMU_GetAutoComponentCount();
+    }
+    DEKI_PLUGIN_API const Deki::ComponentMeta* DekiPlugin_GetComponentMeta(int index)
+    {
+        return ::DekiIMU_GetAutoComponentMeta(index);
+    }
+    DEKI_PLUGIN_API void DekiPlugin_RegisterComponents(void)
+    {
+        DekiIMU_EnsureRegistered();
+    }
 
+}  // extern "C"
 
-} // extern "C"
-
-#endif // DEKI_EDITOR
+#endif  // DEKI_EDITOR
 }  // namespace DekiImu
-

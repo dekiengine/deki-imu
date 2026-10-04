@@ -22,7 +22,7 @@ namespace
 // the derived accessors can be shown to go through the virtual ones.
 class FakeIMU : public IDekiIMU
 {
-   public:
+public:
     DekiVec3f accel{};  // m/s^2
     DekiVec3f gyro{};   // rad/s
     mutable int accelReads = 0;
@@ -60,7 +60,7 @@ constexpr float kG = 9.80665f;
 TEST(ImuUnits, AccelGIsTheSIValueDividedByStandardGravity)
 {
     FakeIMU imu;
-    imu.accel = {kG, 2.0f * kG, -0.5f * kG};
+    imu.accel = { kG, 2.0f * kG, -0.5f * kG };
 
     const DekiVec3f g = imu.ReadAccelG();
     EXPECT_FLOAT_EQ(g.x, 1.0f);
@@ -73,14 +73,14 @@ TEST(ImuUnits, AccelAtRestOnItsBackReadsOneG)
     // What a datasheet's "±2 g" range means in practice: a stationary sensor
     // reads one g on whichever axis points up.
     FakeIMU imu;
-    imu.accel = {0.0f, 0.0f, kG};
+    imu.accel = { 0.0f, 0.0f, kG };
     EXPECT_NEAR(imu.ReadAccelG().z, 1.0f, 1e-6f);
 }
 
 TEST(ImuUnits, GyroDegreesIsTheSIValueConverted)
 {
     FakeIMU imu;
-    imu.gyro = {Deki::Math::kPi, Deki::Math::kPi * 0.5f, -Deki::Math::kPi};
+    imu.gyro = { Deki::Math::kPi, Deki::Math::kPi * 0.5f, -Deki::Math::kPi };
 
     const DekiVec3f d = imu.ReadGyroDegreesPerSecond();
     EXPECT_NEAR(d.x, 180.0f, 1e-3f);
@@ -94,7 +94,7 @@ TEST(ImuUnits, GyroFullScaleMatchesTheDatasheetFigure)
     // SI must read back as 245 in the datasheet spelling, or the two
     // documented full-scale numbers describe different sensors.
     FakeIMU imu;
-    imu.gyro = {245.0f * Deki::Math::kDegToRad, 0.0f, 0.0f};
+    imu.gyro = { 245.0f * Deki::Math::kDegToRad, 0.0f, 0.0f };
     EXPECT_NEAR(imu.ReadGyroDegreesPerSecond().x, 245.0f, 1e-3f);
 }
 
@@ -113,14 +113,14 @@ TEST(ImuUnits, DerivedAccessorsGoThroughTheVirtualOnes)
 TEST(ImuUnits, ConversionsRoundTrip)
 {
     FakeIMU imu;
-    for (float dps : {0.0f, 1.0f, -1.0f, 245.0f, -245.0f, 2000.0f})
+    for (float dps : { 0.0f, 1.0f, -1.0f, 245.0f, -245.0f, 2000.0f })
     {
-        imu.gyro = {dps * Deki::Math::kDegToRad, 0.0f, 0.0f};
+        imu.gyro = { dps * Deki::Math::kDegToRad, 0.0f, 0.0f };
         EXPECT_NEAR(imu.ReadGyroDegreesPerSecond().x, dps, std::abs(dps) * 1e-5f + 1e-5f);
     }
-    for (float g : {0.0f, 1.0f, -1.0f, 2.0f, -16.0f})
+    for (float g : { 0.0f, 1.0f, -1.0f, 2.0f, -16.0f })
     {
-        imu.accel = {g * kG, 0.0f, 0.0f};
+        imu.accel = { g * kG, 0.0f, 0.0f };
         EXPECT_NEAR(imu.ReadAccelG().x, g, std::abs(g) * 1e-5f + 1e-5f);
     }
 }

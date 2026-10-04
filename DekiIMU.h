@@ -15,7 +15,7 @@ namespace DekiImu
 class DekiIMU
 {
 public:
-    static void      SetCurrent(IDekiIMU* imu);
+    static void SetCurrent(IDekiIMU* imu);
     static IDekiIMU* GetCurrent();
 
 private:
