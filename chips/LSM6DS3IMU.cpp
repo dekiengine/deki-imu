@@ -30,10 +30,15 @@ constexpr uint8_t kCtrl2G416Hz245 = 0x60;
 // CTRL3_C : BDU (block data update)
 constexpr uint8_t kCtrl3CBdu = 0x44;
 
-// Pedometer enable: TAP_CFG = 0x40 turns the embedded functions on, and
-// CTRL10_C sets bit 4 (PEDO_EN) and bit 2 (FUNC_EN).
+// The pedometer bits differ between the two chips this driver accepts.
+// LSM6DS3: PEDO_EN is TAP_CFG bit 6, and CTRL10_C holds the gyro axis enables
+// (bits 5-3, on by default) next to FUNC_EN (bit 2), so they must stay set.
+// LSM6DS3TR-C (LSM6DSL layout): PEDO_EN is CTRL10_C bit 4 next to FUNC_EN,
+// and TAP_CFG is left alone. On both, PEDO_RST_STEP is CTRL10_C bit 1.
 constexpr uint8_t kTapCfgPedoEn = 0x40;
-constexpr uint8_t kCtrl10CPedoFun = 0x14;
+constexpr uint8_t kCtrl10CGyroAxesFuncEn = 0x3C;  // LSM6DS3
+constexpr uint8_t kCtrl10CPedoFuncEn = 0x14;      // LSM6DS3TR-C
+constexpr uint8_t kCtrl10CPedoRstStep = 0x02;
 
 inline int16_t ToS16(uint8_t lo, uint8_t hi)
 {
@@ -70,6 +75,7 @@ bool LSM6DS3IMU::Initialize()
     if (m_Bus->Read(m_I2cAddr, kRegWhoAmI, &who, 1) && (who == kWhoAmILsm6ds3 || who == kWhoAmILsm6ds3C))
     {
         m_HardwareConnected = true;
+        m_DslRegisterMap = (who == kWhoAmILsm6ds3C);
     }
     else
     {
@@ -110,10 +116,13 @@ bool LSM6DS3IMU::EnablePedometer()
     {
         return false;
     }
-    const uint8_t tapCfg = kTapCfgPedoEn;
-    const uint8_t ctrl10C = kCtrl10CPedoFun;
     bool ok = true;
-    ok &= m_Bus->Write(m_I2cAddr, kRegTapCfg, &tapCfg, 1);
+    if (!m_DslRegisterMap)
+    {
+        const uint8_t tapCfg = kTapCfgPedoEn;
+        ok &= m_Bus->Write(m_I2cAddr, kRegTapCfg, &tapCfg, 1);
+    }
+    const uint8_t ctrl10C = PedometerCtrl10C();
     ok &= m_Bus->Write(m_I2cAddr, kRegCtrl10C, &ctrl10C, 1);
     return ok;
 }
@@ -172,17 +181,23 @@ uint32_t LSM6DS3IMU::GetStepCount() const
     return (uint32_t)((uint16_t)raw[0] | ((uint16_t)raw[1] << 8));
 }
 
+uint8_t LSM6DS3IMU::PedometerCtrl10C() const
+{
+    return m_DslRegisterMap ? kCtrl10CPedoFuncEn : kCtrl10CGyroAxesFuncEn;
+}
+
 void LSM6DS3IMU::ResetStepCount()
 {
     if (!m_Bus)
     {
         return;
     }
-    // TAP_CFG bit 6 = PEDO_RST_STEP (toggled on to clear, hardware auto-clears)
-    const uint8_t reset = kTapCfgPedoEn | 0x02;  // keep func enable + set PEDO_RST_STEP bit
-    m_Bus->Write(m_I2cAddr, kRegTapCfg, &reset, 1);
-    const uint8_t normal = kTapCfgPedoEn;
-    m_Bus->Write(m_I2cAddr, kRegTapCfg, &normal, 1);
+    // Set PEDO_RST_STEP to clear the count, then clear it again; the rest of
+    // CTRL10_C keeps the pedometer running.
+    const uint8_t normal = PedometerCtrl10C();
+    const uint8_t reset = normal | kCtrl10CPedoRstStep;
+    m_Bus->Write(m_I2cAddr, kRegCtrl10C, &reset, 1);
+    m_Bus->Write(m_I2cAddr, kRegCtrl10C, &normal, 1);
 }
 
 }  // namespace DekiImu

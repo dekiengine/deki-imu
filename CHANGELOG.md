@@ -14,6 +14,14 @@ alongside one that has them.
 - **Names follow the code style** (deki-engine/docs/codestyle): types, functions and enum values are PascalCase, constants kPascalCase, members m_PascalCase, locals and parameters camelCase. The code is formatted with clang-format 22.
 - The functions the editor finds by name are PascalCase: DekiIMURegisterComponents, DekiIMUGetAutoComponentCount, DekiIMUEnsureRegistered and the rest. Built against engine ABI 21; a build of this package from before does not load and is rebuilt.
 
+### Fixed
+- LSM6DS3: resetting the step count works. It set a bit in the wrong
+  register, so the count never cleared.
+- LSM6DS3: with the pedometer on, the gyroscope's X and Z axes stay on. Turning
+  the pedometer on switched them off on the original LSM6DS3. The pedometer
+  bits now follow the chip: the LSM6DS3 and the LSM6DS3TR-C keep them in
+  different places.
+
 ## 0.17.0
 
 ### Changed

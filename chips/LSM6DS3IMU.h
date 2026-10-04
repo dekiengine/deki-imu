@@ -41,6 +41,12 @@ private:
 
     Deki::PackageState m_State = Deki::PackageState::Uninitialized;
     bool m_HardwareConnected = false;
+    // LSM6DS3TR-C (WHO_AM_I 0x6A): the pedometer bits sit where the LSM6DSL
+    // has them, not where the original LSM6DS3 does.
+    bool m_DslRegisterMap = false;
+
+    // What CTRL10_C holds while the pedometer runs.
+    uint8_t PedometerCtrl10C() const;
     std::string m_LastError;
 
     // Chip counts to SI, here and nowhere else. The datasheet's ±2 g and
