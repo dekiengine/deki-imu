@@ -22,6 +22,10 @@ alongside one that has them.
   bits now follow the chip: the LSM6DS3 and the LSM6DS3TR-C keep them in
   different places.
 
+### Removed
+- The former names from before 0.16.0 (bare class names, and deki-gpio's
+  `DekiEsp32::ESP32PinSetup`). A scene that old is upgraded with 0.17 first.
+
 ## 0.17.0
 
 ### Changed

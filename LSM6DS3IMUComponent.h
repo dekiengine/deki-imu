@@ -17,7 +17,6 @@ namespace DekiImu
 DEKI_CATEGORY("Sensors")
 DEKI_DISPLAY_NAME("LSM6DS3 IMU")
 DEKI_DESCRIPTION("Reads the LSM6DS3 motion sensor over I2C, step counter included.")
-DEKI_FORMER_NAME("LSM6DS3IMUComponent")
 class LSM6DS3IMUComponent : public Deki::SetupComponent
 {
 public:
