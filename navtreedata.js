@@ -25,17 +25,19 @@
 var NAVTREE =
 [
   [ "deki-imu", "index.html", [
-    [ "Components", "index.html#autotoc_md0", null ],
-    [ "Feature flags", "index.html#autotoc_md1", null ],
-    [ "Component reference", "index.html#autotoc_md2", [
+    [ "Components", "index.html#components", null ],
+    [ "Feature flags", "index.html#feature-flags", null ],
+    [ "Component reference", "index.html#component-reference", [
       [ "LSM6DS3IMUComponent", "index.html#c-lsm6ds3imucomponent", null ]
     ] ],
-    [ "Changelog", "index.html#autotoc_md3", [
-      [ "0.16.0", "index.html#autotoc_md4", null ],
-      [ "Changed", "index.html#autotoc_md5", null ],
-      [ "0.15.0", "index.html#autotoc_md6", null ],
-      [ "Changed", "index.html#autotoc_md7", null ],
-      [ "Added", "index.html#autotoc_md8", null ]
+    [ "Changelog", "index.html#changelog", [
+      [ "0.19.0", "index.html#autotoc_md0", null ],
+      [ "Changed", "index.html#autotoc_md1", null ],
+      [ "Added", "index.html#autotoc_md2", null ],
+      [ "0.18.0", "index.html#autotoc_md3", null ],
+      [ "Changed", "index.html#autotoc_md4", null ],
+      [ "Fixed", "index.html#autotoc_md5", null ],
+      [ "Removed", "index.html#autotoc_md6", null ]
     ] ]
   ] ]
 ];
