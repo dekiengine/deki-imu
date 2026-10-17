@@ -7,5 +7,6 @@
     "The sensor's address on the bus, set by its SDO/SA0 pin: 0x6A when that pin is low, 0x6B when high. Two of these chips can share a bus by wiring that pin differently.": "传感器在总线上的地址，由 SDO/SA0 引脚决定：该引脚为低电平时为 0x6A，高电平时为 0x6B。将该引脚接成不同电平，两块这种芯片就能共用一条总线。",
     "Which I2C bus the sensor is on. Must match the I2C Bus component that set that port up.": "传感器所在的 I2C 总线。必须与设置该端口的 I2C 总线组件一致。",
     "Reads the LSM6DS3 motion sensor over I2C, step counter included.": "通过 I2C 读取 LSM6DS3 运动传感器，包括计步器。",
-    "Sensors": "传感器"
+    "Sensors": "传感器",
+    "LSM6DS3 IMU": "LSM6DS3 IMU"
 }

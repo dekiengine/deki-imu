@@ -7,5 +7,6 @@
     "The sensor's address on the bus, set by its SDO/SA0 pin: 0x6A when that pin is low, 0x6B when high. Two of these chips can share a bus by wiring that pin differently.": "バス上のセンサーのアドレスで、SDO/SA0 ピンで決まります。ピンが Low なら 0x6A、High なら 0x6B です。このピンの配線を変えれば、このチップ 2 つで 1 つのバスを共有できます。",
     "Which I2C bus the sensor is on. Must match the I2C Bus component that set that port up.": "センサーがつながっている I2C バスです。そのポートを設定した I2C バスコンポーネントと一致させる必要があります。",
     "Reads the LSM6DS3 motion sensor over I2C, step counter included.": "LSM6DS3 モーションセンサーを I2C で読み取ります。歩数計にも対応します。",
-    "Sensors": "センサー"
+    "Sensors": "センサー",
+    "LSM6DS3 IMU": "LSM6DS3 IMU"
 }
