@@ -5,5 +5,7 @@
     "LSM6DS3IMU Component": "LSM6DS3IMU 컴포넌트",
     "Run the chip's built-in step counter. It counts in hardware, so steps keep accumulating without the CPU waking, at a small extra current draw.": "칩에 내장된 걸음 수 카운터를 실행합니다. 하드웨어에서 세므로 CPU를 깨우지 않고도 걸음 수가 계속 쌓이며, 소비 전류가 약간 늘어납니다.",
     "The sensor's address on the bus, set by its SDO/SA0 pin: 0x6A when that pin is low, 0x6B when high. Two of these chips can share a bus by wiring that pin differently.": "버스상의 센서 주소로, SDO/SA0 핀으로 정해집니다. 그 핀이 Low이면 0x6A, High이면 0x6B입니다. 이 핀을 다르게 연결하면 이 칩 두 개가 하나의 버스를 공유할 수 있습니다.",
-    "Which I2C bus the sensor is on. Must match the I2C Bus component that set that port up.": "센서가 연결된 I2C 버스입니다. 해당 포트를 설정한 I2C 버스 컴포넌트와 일치해야 합니다."
+    "Which I2C bus the sensor is on. Must match the I2C Bus component that set that port up.": "센서가 연결된 I2C 버스입니다. 해당 포트를 설정한 I2C 버스 컴포넌트와 일치해야 합니다.",
+    "Reads the LSM6DS3 motion sensor over I2C, step counter included.": "I2C로 LSM6DS3 모션 센서를 읽습니다. 걸음 수 카운터도 포함됩니다.",
+    "Sensors": "센서"
 }
