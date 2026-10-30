@@ -1,7 +1,7 @@
 {
     "Enable Pedometer": "歩数計を有効化",
-    "I 2c Address": "I2C アドレス",
-    "I 2c Port": "I2C ポート",
+    "I2C Address": "I2C アドレス",
+    "I2C Port": "I2C ポート",
     "LSM6DS3IMU Component": "LSM6DS3IMU コンポーネント",
     "Run the chip's built-in step counter. It counts in hardware, so steps keep accumulating without the CPU waking, at a small extra current draw.": "チップ内蔵の歩数計を動かします。ハードウェアで数えるので、CPU を起こさずに歩数がたまっていきます。消費電流は少し増えます。",
     "The sensor's address on the bus, set by its SDO/SA0 pin: 0x6A when that pin is low, 0x6B when high. Two of these chips can share a bus by wiring that pin differently.": "バス上のセンサーのアドレスで、SDO/SA0 ピンで決まります。ピンが Low なら 0x6A、High なら 0x6B です。このピンの配線を変えれば、このチップ 2 つで 1 つのバスを共有できます。",

@@ -1,7 +1,7 @@
 {
     "Enable Pedometer": "启用计步器",
-    "I 2c Address": "I2C 地址",
-    "I 2c Port": "I2C 端口",
+    "I2C Address": "I2C 地址",
+    "I2C Port": "I2C 端口",
     "LSM6DS3IMU Component": "LSM6DS3IMU 组件",
     "Run the chip's built-in step counter. It counts in hardware, so steps keep accumulating without the CPU waking, at a small extra current draw.": "运行芯片内置的计步器。由硬件计数，无需唤醒 CPU 就能持续累计步数，只会略微增加电流消耗。",
     "The sensor's address on the bus, set by its SDO/SA0 pin: 0x6A when that pin is low, 0x6B when high. Two of these chips can share a bus by wiring that pin differently.": "传感器在总线上的地址，由 SDO/SA0 引脚决定：该引脚为低电平时为 0x6A，高电平时为 0x6B。将该引脚接成不同电平，两块这种芯片就能共用一条总线。",
