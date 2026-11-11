@@ -32,8 +32,8 @@ void LSM6DS3IMUComponent::Setup(SetupCallback onComplete)
     }
     else
     {
-        DEKI_LOG_ERROR("LSM6DS3IMUComponent: Failed to initialize LSM6DS3 on I2C port %d addr 0x%02X", (int)i2cPort,
-                       (unsigned)i2cAddress);
+        DEKI_LOG_ERROR("LSM6DS3IMUComponent: Failed to initialize LSM6DS3 on I2C port %d addr 0x%02X",
+                       static_cast<int>(i2cPort), static_cast<unsigned>(i2cAddress));
     }
 
     if (onComplete)

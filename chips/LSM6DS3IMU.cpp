@@ -42,14 +42,14 @@ constexpr uint8_t kCtrl10CPedoRstStep = 0x02;
 
 inline int16_t ToS16(uint8_t lo, uint8_t hi)
 {
-    return (int16_t)((uint16_t)lo | ((uint16_t)hi << 8));
+    return static_cast<int16_t>(static_cast<uint16_t>(lo) | (static_cast<uint16_t>(hi) << 8));
 }
 }  // namespace
 
 void LSM6DS3IMU::Configure(const Deki::PackageConfig& config)
 {
     m_BusPort = config.GetInt("i2cPort", 0);
-    m_I2cAddr = (uint8_t)config.GetInt("i2cAddress", 0x6A);
+    m_I2cAddr = static_cast<uint8_t>(config.GetInt("i2cAddress", 0x6A));
     m_Pedometer = config.GetBool("enablePedometer", true);
 }
 
@@ -141,9 +141,9 @@ DekiVec3f LSM6DS3IMU::ReadAccelMetersPerSecondSquared() const
         return v;
     }
 
-    v.x = (float)ToS16(raw[0], raw[1]) * m_AccelScale;
-    v.y = (float)ToS16(raw[2], raw[3]) * m_AccelScale;
-    v.z = (float)ToS16(raw[4], raw[5]) * m_AccelScale;
+    v.x = static_cast<float>(ToS16(raw[0], raw[1])) * m_AccelScale;
+    v.y = static_cast<float>(ToS16(raw[2], raw[3])) * m_AccelScale;
+    v.z = static_cast<float>(ToS16(raw[4], raw[5])) * m_AccelScale;
     return v;
 }
 
@@ -161,9 +161,9 @@ DekiVec3f LSM6DS3IMU::ReadGyroRadiansPerSecond() const
         return v;
     }
 
-    v.x = (float)ToS16(raw[0], raw[1]) * m_GyroScale;
-    v.y = (float)ToS16(raw[2], raw[3]) * m_GyroScale;
-    v.z = (float)ToS16(raw[4], raw[5]) * m_GyroScale;
+    v.x = static_cast<float>(ToS16(raw[0], raw[1])) * m_GyroScale;
+    v.y = static_cast<float>(ToS16(raw[2], raw[3])) * m_GyroScale;
+    v.z = static_cast<float>(ToS16(raw[4], raw[5])) * m_GyroScale;
     return v;
 }
 
@@ -178,7 +178,7 @@ uint32_t LSM6DS3IMU::GetStepCount() const
     {
         return 0;
     }
-    return (uint32_t)((uint16_t)raw[0] | ((uint16_t)raw[1] << 8));
+    return static_cast<uint32_t>(static_cast<uint16_t>(raw[0]) | (static_cast<uint16_t>(raw[1]) << 8));
 }
 
 uint8_t LSM6DS3IMU::PedometerCtrl10C() const
