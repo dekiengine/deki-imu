@@ -31,10 +31,10 @@ var NAVTREE =
       [ "LSM6DS3IMUComponent", "index.html#c-lsm6ds3imucomponent", null ]
     ] ],
     [ "Changelog", "index.html#changelog", [
-      [ "0.22.0", "index.html#autotoc_md0", null ],
+      [ "0.40.0", "index.html#autotoc_md0", null ],
       [ "Changed", "index.html#autotoc_md1", null ],
-      [ "0.20.0", "index.html#autotoc_md2", null ],
-      [ "Fixed", "index.html#autotoc_md3", null ]
+      [ "0.22.0", "index.html#autotoc_md2", null ],
+      [ "Changed", "index.html#autotoc_md3", null ]
     ] ]
   ] ]
 ];
